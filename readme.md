@@ -2,6 +2,8 @@
 
 Custom field for [CMB2](https://github.com/WebDevStudios/CMB2) to store custom order of options.
 
+![example](example.gif)
+
 ```php
 add_action( 'cmb2_admin_init', 'cmb2_order_metabox' );
 function cmb2_order_metabox() {
@@ -35,10 +37,6 @@ function cmb2_order_metabox() {
 
 }
 ```
-
-## Screenshot
-
-![example](example.gif)
 
 ## Changelog
 
