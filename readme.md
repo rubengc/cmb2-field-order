@@ -40,5 +40,8 @@ function cmb2_order_metabox() {
 
 ## Changelog
 
+### 1.0.1
+* Sortable now works on Appearance >> Widgets
+
 ### 1.0.0
 * Initial commit

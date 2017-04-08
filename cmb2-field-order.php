@@ -4,7 +4,7 @@ Plugin Name: CMB2 Field Type: Order
 Plugin URI: https://github.com/rubengc/cmb2-field-order
 GitHub Plugin URI: https://github.com/rubengc/cmb2-field-order
 Description: CMB2 field type to allow pick an order of predefined options.
-Version: 1.0.0
+Version: 1.0.1
 Author: Ruben Garcia
 Author URI: http://rubengc.com/
 License: GPLv2+
@@ -29,6 +29,7 @@ if( !class_exists( 'CMB2_Field_Order' ) ) {
          * Initialize the plugin by hooking into CMB2
          */
         public function __construct() {
+            add_action( 'admin_enqueue_scripts', array( $this, 'setup_admin_scripts' ) );
             add_action( 'cmb2_render_order', array( $this, 'render' ), 10, 5 );
             add_action( 'cmb2_sanitize_order', array( $this, 'sanitize' ), 10, 4 );
         }
@@ -37,8 +38,6 @@ if( !class_exists( 'CMB2_Field_Order' ) ) {
          * Render field
          */
         public function render( $field, $value, $object_id, $object_type, $field_type ) {
-            $this->setup_admin_scripts();
-
             $field_name = $field->_name();
 
             if( is_array( $field->args( 'options' ) ) ){
