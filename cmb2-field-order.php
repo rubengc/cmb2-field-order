@@ -43,14 +43,17 @@ if( !class_exists( 'CMB2_Field_Order' ) ) {
             if( is_array( $field->args( 'options' ) ) ){
                 echo '<ul class="cmb-order-items ' . ( $field->args( 'inline' ) ? 'cmb-order-inline' : '' ) .  '" id="' . $field_name . '_items">';
 
+                // Initialize value if not exists or is empty
                 if( ! isset( $value ) || empty( $value ) ) {
                     foreach( $field->args( 'options' ) as $key => $option) {
                         $value[] = $key;
                     }
                 }
 
-                foreach($value as $order => $key){
-                    echo '<li><input type="hidden" name="'.$field_name.'[]" value="'.$key.'"><span>'.$field->args( 'options' )[$key].'</span></li>';
+                foreach( $value as $key ) {
+                    if( isset( $field->args( 'options' )[$key] ) ) {
+                        echo '<li><input type="hidden" name="' . $field_name . '[]" value="' . $key . '"><span>' . $field->args( 'options' )[$key] . '</span></li>';
+                    }
                 }
 
                 echo '</ul>';
@@ -60,9 +63,6 @@ if( !class_exists( 'CMB2_Field_Order' ) ) {
 
         }
 
-        /**
-         * Optionally save the latitude/longitude values into two custom fields
-         */
         public function sanitize( $override_value, $value, $object_id, $field_args ) {
             $fid = $field_args['id'];
 
@@ -79,7 +79,7 @@ if( !class_exists( 'CMB2_Field_Order' ) ) {
          * Enqueue scripts and styles
          */
         public function setup_admin_scripts() {
-            wp_register_script( 'cmb-field-order', plugins_url( 'js/order.js', __FILE__ ), array( 'jquery', 'jquery-ui-sortable' ), self::VERSION );
+            wp_register_script( 'cmb-field-order', plugins_url( 'js/order.js', __FILE__ ), array( 'jquery', 'jquery-ui-sortable' ), self::VERSION, true );
             wp_enqueue_script( 'cmb-field-order' );
 
             wp_enqueue_style( 'cmb-field-order', plugins_url( 'css/order.css', __FILE__ ), array(), self::VERSION );
