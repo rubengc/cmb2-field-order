@@ -40,23 +40,45 @@ if( !class_exists( 'CMB2_Field_Order' ) ) {
         public function render( $field, $value, $object_id, $object_type, $field_type ) {
             $field_name = $field->_name();
 
-            if( is_array( $field->args( 'options' ) ) ){
-                echo '<ul class="cmb-order-items ' . ( $field->args( 'inline' ) ? 'cmb-order-inline' : '' ) .  '" id="' . $field_name . '_items">';
+            $options = (array) $field->args( 'options' );
 
-                // Initialize value if not exists or is empty
+            if ( is_callable( $field->args( 'options_cb' ) ) ) {
+                $options_cb = call_user_func( $field->args( 'options_cb' ), $field );
+
+                if ( $options_cb && is_array( $options_cb ) ) {
+                    $options = $options_cb + $options;
+                }
+            }
+
+            if( $options && is_array( $options ) ) {
+
                 if( ! isset( $value ) || empty( $value ) ) {
-                    foreach( $field->args( 'options' ) as $key => $option) {
+                    // Initialize value if not exists or is empty
+                    foreach( $options as $key => $option) {
                         $value[] = $key;
                     }
-                }
-
-                foreach( $value as $key ) {
-                    if( isset( $field->args( 'options' )[$key] ) ) {
-                        echo '<li><input type="hidden" name="' . $field_name . '[]" value="' . $key . '"><span>' . $field->args( 'options' )[$key] . '</span></li>';
+                } else {
+                    // Check if all options exists in $value
+                    foreach( $options as $key => $option) {
+                        if( ! in_array( $key, $value ) ) {
+                            $value[] = $key;
+                        }
                     }
-                }
+                } ?>
 
-                echo '</ul>';
+                <ul class="cmb-order-items <?php echo ( $field->args( 'inline' ) ? 'cmb-order-inline' : '' ); ?>" id="<?php echo $field_name; ?>_items">
+
+                <?php foreach( $value as $key ) :
+                    if( isset( $options[$key] ) ) : ?>
+                        <li>
+                            <input type="hidden" name="<?php echo $field_name ; ?>[]" value="<?php echo $key; ?>"><span><?php echo $options[$key]; ?></span>
+                        </li>
+                    <?php endif;
+                endforeach; ?>
+
+                </ul>
+
+                <?php
             }
 
             $field_type->_desc( true, true );
