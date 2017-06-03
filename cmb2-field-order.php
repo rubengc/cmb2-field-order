@@ -1,14 +1,18 @@
 <?php
-/*
-Plugin Name: CMB2 Field Type: Order
-Plugin URI: https://github.com/rubengc/cmb2-field-order
-GitHub Plugin URI: https://github.com/rubengc/cmb2-field-order
-Description: CMB2 field type to allow pick an order of predefined options.
-Version: 1.0.1
-Author: Ruben Garcia
-Author URI: http://rubengc.com/
-License: GPLv2+
-*/
+/**
+ * @package      CMB2\Field_Order
+ * @author       Tsunoa
+ * @copyright    Copyright (c) Tsunoa
+ *
+ * Plugin Name: CMB2 Field Type: Order
+ * Plugin URI: https://github.com/rubengc/cmb2-field-order
+ * GitHub Plugin URI: https://github.com/rubengc/cmb2-field-order
+ * Description: CMB2 field type to allow pick an order of predefined options.
+ * Version: 1.0.1
+ * Author: Tsunoa
+ * Author URI: https://tsunoa.com/
+ * License: GPLv2+
+ */
 
 
 // Exit if accessed directly
