@@ -56,7 +56,9 @@ if( !class_exists( 'CMB2_Field_Order' ) ) {
 
             if( $options && is_array( $options ) ) {
 
-                if( ! isset( $value ) || empty( $value ) ) {
+                if( ! isset( $value ) || empty( $value ) || ! is_array( $value ) ) {
+                    $value = array();
+
                     // Initialize value if not exists or is empty
                     foreach( $options as $key => $option) {
                         $value[] = $key;
