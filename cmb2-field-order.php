@@ -53,7 +53,9 @@ if( !class_exists( 'CMB2_Field_Order' ) ) {
                     $options = $options_cb + $options;
                 }
             }
-
+            
+            $value = (array) $value;
+            
             if( $options && is_array( $options ) ) {
 
                 if( ! isset( $value ) || empty( $value ) || ! is_array( $value ) ) {
